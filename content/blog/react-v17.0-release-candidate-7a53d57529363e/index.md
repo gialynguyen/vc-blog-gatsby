@@ -92,7 +92,7 @@ function handleChange(e) {
 
 Ở các phiên bản trước thì điều này sẽ gây ra "crash" app và phải cần khai báo thêm event.persist(), nhưng từ phiên bản 17 trở đi Event Pooling sẽ bị "khai tử".
 
-Nguyên nhân chính là vì React sẽ "dùng lại" các Event Object giữ các Event khác nhau (Event Object cũ sẽ bị ghi đè lên bởi Event Object mới nên không thể truy xuất Event Object được nữa), ban đầu đội ngũ phát triển implement tính năng này để tăng hiệu suất trên các trình duyệt cũ
+Nguyên nhân chính là vì React sẽ "dùng lại" các Event Object giữ các Event khác nhau (Event Object cũ sẽ bị ghi đè lên bởi Event Object mới nên không thể truy xuất Event Object cũ được nữa), ban đầu đội ngũ phát triển implement tính năng này để tăng hiệu suất trên các trình duyệt cũ
 
 ## Effect Cleanup thực thi đúng đắn hơn
 
