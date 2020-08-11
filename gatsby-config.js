@@ -36,6 +36,20 @@ module.exports = {
             },
           },
           {
+            resolve: "gatsby-remark-external-links",
+            options: {
+              target: "_blank",
+            }
+          },
+          {
+            resolve: "gatsby-remark-autolink-headers",
+            options: {
+              removeAccents: true,
+              maintainCase: false,
+              elements: ["h2"],
+            }
+          },
+          {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
               wrapperStyle: `margin-bottom: 1.0725rem`,
