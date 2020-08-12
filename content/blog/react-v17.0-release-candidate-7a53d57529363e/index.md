@@ -50,7 +50,7 @@ Bởi vì, trong React, đối với hầu hết các sự kiện, React không 
 
 Khi một DOM event được kích hoạt trên **document**, React sẽ tìm ra thành phần nào cần được gọi và sau đó React Event sẽ "bubbles" (bong bóng) lên trên đúng component mà chúng ta cần. Nhưng bản chất thì sự kiện sẽ được nổi lên bên trên **document** node - nơi React đã implement các trình xử lý sự kiện (event handler).
 
-Tuy nhiên, điều này dẫn đến một hậu quả nghiêm trọng. Đó là khi register các event handler lên trên "top" khi điều này đã phá vỡ đi event.stopPropagation() - Tức là khi nested tree (cây DOM lẽ ra sẽ đứng ra nhận sự kiện) muốn ngừng truyền sự kiện thì DOM tree bên ngoài vẫn sẽ nhận được sự kiện đó bởi vì thực chất sự kiên được regiter ở cấp trên cùng. Điều này vô tình cũng tạo ra hạn chế khi phát triển tính năng **Gradual Upgrades**
+Tuy nhiên, điều này dẫn đến một hậu quả nghiêm trọng. Đó là khi register các event handler lên trên "top" khi điều này đã phá vỡ đi event.stopPropagation() - Tức là khi nested tree (cây DOM lẽ ra sẽ đứng ra nhận sự kiện) muốn ngừng truyền sự kiện thì DOM tree bên ngoài vẫn sẽ nhận được sự kiện đó bởi vì thực chất sự kiên được register ở cấp trên cùng. Điều này vô tình cũng tạo ra hạn chế khi phát triển tính năng **Gradual Upgrades**
 
 Vì thế kể từ phiên bản React 17 trở đi, React sẽ thay đổi cơ chế khi đính kèm các event handler: thay vì register event handler ở **document** node thì React từ nay sẽ register event handler đó vào Container Node mà React DOM Tree khi được render
 
