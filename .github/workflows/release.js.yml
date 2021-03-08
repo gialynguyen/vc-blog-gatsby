@@ -1,5 +1,5 @@
 name: Release
-"on":
+'on':
   push:
     branches:
       - master
@@ -12,10 +12,10 @@ jobs:
           - 12.x
     steps:
       - uses: actions/checkout@v2
-      - name: "Use Node.js ${{ matrix.node-version }}"
+      - name: 'Use Node.js ${{ matrix.node-version }}'
         uses: actions/setup-node@v1
         with:
-          node-version: "${{ matrix.node-version }}"
+          node-version: '${{ matrix.node-version }}'
       - name: Install Packages
         run: npm install
       - name: Build page
@@ -28,12 +28,12 @@ jobs:
       - name: SSH and deploy node app
         uses: appleboy/ssh-action@master
         with:
-          host: "${{ secrets.SSH_HOST }}"
-          username: "${{ secrets.SSH_USERNAME }}"
-          key: "${{ secrets.SSH_KEY }}"
-          port: "${{ secrets.SSH_PORT }}"
+          host: '${{ secrets.SSH_HOST }}'
+          username: '${{ secrets.SSH_USERNAME }}'
+          key: '${{ secrets.SSH_KEY }}'
+          port: '${{ secrets.SSH_PORT }}'
           script: |
-            cd ~/apps/GAM-PMS-WebFront
+            cd ~/vcteam/vc-blog-gatsby/
             git checkout --f master
             git remote prune origin
             git pull
@@ -41,4 +41,4 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             npm i
             npm run build
-            cp -r ./dist/* /var/www/pms-web
+            npm run start:prod
