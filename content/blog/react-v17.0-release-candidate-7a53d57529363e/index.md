@@ -2,6 +2,7 @@
 title: React v17.0 Release Candidate
 date: "2020-08-11T13:04:56.161Z"
 description: "Facebook vừa xuất bản bản cập nhật đầu tiên (ver Candidate) cho React.js 17.0. Đã hơn 2 năm kể từ bản update lớn trước đó (v16.0). Trong bài viết này, tôi sẽ mô tả khái quát những thay đổi trong bản cập nhật lớn này của React.js"
+tags: ["React", "Javascript"]
 ---
 
 ## Không hề có bất cứ một Feature mới nào!!!

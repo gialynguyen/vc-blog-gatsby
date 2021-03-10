@@ -5,6 +5,12 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
+import Tag from '../components/tag'
+import styled from 'styled-components'
+
+const BlogItem = styled.article`
+  margin-bottom: 1.25rem;
+`
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -15,9 +21,9 @@ const BlogIndex = ({ data, location }) => {
       <SEO title="All posts" />
       <Bio />
       {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
+        const title = node.frontmatter.title || node.fields.slug;
         return (
-          <article key={node.fields.slug}>
+          <BlogItem key={node.fields.slug}>
             <header>
               <h3
                 style={{
@@ -37,7 +43,20 @@ const BlogIndex = ({ data, location }) => {
                 }}
               />
             </section>
-          </article>
+            <section>
+                {
+                  node.frontmatter.tags.map((title) => (
+                    <Link
+                      style={{ boxShadow: `none` }}
+                      key={title}
+                      to={`/tags/${title.toLowerCase()}`}
+                    >
+                      <Tag title={title} />
+                    </Link>
+                  ))
+                }
+              </section>
+          </BlogItem>
         )
       })}
     </Layout>
@@ -64,6 +83,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            tags
           }
         }
       }
