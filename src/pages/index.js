@@ -7,6 +7,7 @@ import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
 import Tag from '../components/tag'
 import styled from 'styled-components'
+import kebabCase from "lodash/kebabCase";
 
 const BlogItem = styled.article`
   margin-bottom: 1.25rem;
@@ -49,7 +50,7 @@ const BlogIndex = ({ data, location }) => {
                     <Link
                       style={{ boxShadow: `none` }}
                       key={title}
-                      to={`/tags/${title.toLowerCase()}`}
+                      to={`/tags/${kebabCase(title)}`}
                     >
                       <Tag title={title} />
                     </Link>

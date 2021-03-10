@@ -3,7 +3,7 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from 'styled-components'
-import { graphql, Link } from 'gatsby'
+import { graphql, Link, navigate } from 'gatsby'
 import { rhythm } from "../utils/typography"
 
 const BlogItem = styled.article`
@@ -11,14 +11,21 @@ const BlogItem = styled.article`
 `
 
 const TagIndex = ({ location, pageContext, data }) => {
-  const tagName = pageContext.tag.fieldValue;
+  const tagName = pageContext?.tag?.fieldValue;
   const { edges } = data.allMarkdownRemark
+
+  if (!tagName) {
+    navigate('/', {
+      replace: true,
+    })
+    return null;
+  }
 
   return (
     <Layout location={location} title={`Tags: ${tagName}`}>
       <SEO title={`Tags: ${tagName}`} />
       {
-        edges.map(({ node }) => {
+        edges?.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug;
           return (
             <BlogItem key={node.fields.slug}>
