@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -14,10 +14,15 @@ const TagIndex = ({ location, pageContext, data }) => {
   const tagName = pageContext?.tag?.fieldValue;
   const { edges } = data.allMarkdownRemark
 
+  useEffect(() => {
+    if (!tagName) {
+      navigate('/', {
+        replace: true,
+      })
+    }
+  }, [tagName])
+
   if (!tagName) {
-    navigate('/', {
-      replace: true,
-    })
     return null;
   }
 
