@@ -1,7 +1,7 @@
 ---
 title: Side effect và useEffect trong React hook
 date: "2021-03-16T21:12:56.161Z"
-description: "Nhắc tới React hook không thể không nhắc tới useEffect, "
+description: "Trong bài này chúng ta sẽ cùng tìm hiểu side effect là gì? Effect Hook cho phép thực hiện side effect bên trong các function component như thế nào? Và một số cách sử dụng của useEffect trong React hook"
 tags: ["React", "useEffect"]
 ---
 
