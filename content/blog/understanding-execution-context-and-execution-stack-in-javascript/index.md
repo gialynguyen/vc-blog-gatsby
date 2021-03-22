@@ -10,15 +10,17 @@ tags: ["Javascript"]
 Nói một cách đơn giản, ngữ cảnh thực thi là một khái niệm trừu tượng về một môi trường mà mã Javascript được đánh giá và thực thi. Bất cứ khi nào bất kỳ mã nào được chạy bằng JavaScript, mã đó sẽ chạy bên trong ngữ cảnh thực thi.
 
 ### **Các loại ngữ cảnh thực thi**
+
 Có ba loại ngữ cảnh thực thi trong JavaScript.
 
 - **Ngữ cảnh thực thi toàn cầu --** Đây là ngữ cảnh thực thi mặc định. Mã không nằm trong bất kỳ hàm nào nằm trong ngữ cảnh thực thi toàn cục. Nó thực hiện hai việc: nó tạo ra một đối tượng toàn cục là một đối tượng cửa sổ(window) (trong trường hợp của các trình duyệt) và đặt giá trị của nó bằng đối tượng toàn cục. Chỉ có thể có một ngữ cảnh thực thi chung trong một chương trình.
 
-- **Ngữ cảnh thực thi chức năng --** Mỗi khi một hàm được gọi, một ngữ cảnh thực thi hoàn toàn mới sẽ được tạo cho hàm đó. Mỗi hàm có ngữ cảnh thực thi riêng, nhưng nó được tạo khi hàm được gọi hoặc gọi. Có thể có bất kỳ số lượng ngữ cảnh thực thi chức năng nào. Bất cứ khi nào một bối cảnh thực thi mới được tạo, nó sẽ trải qua một loạt các bước theo thứ tự xác định mà tôi sẽ trình bày ở phần sau của bài viết này.
+- **Ngữ cảnh thực thi chức năng --** Mỗi khi một hàm được gọi, một ngữ cảnh thực thi hoàn toàn mới sẽ được tạo cho hàm đó. Mỗi hàm có ngữ cảnh thực thi riêng, nhưng nó được tạo khi hàm được gọi hoặc gọi. Có thể có bất kỳ số lượng ngữ cảnh thực thi chức năng nào. Bất cứ khi nào một ngữ cảnh thực thi mới được tạo, nó sẽ trải qua một loạt các bước theo thứ tự xác định mà tôi sẽ trình bày ở phần sau của bài viết này.
 
 - **Đánh giá ngữ cảnh thực thi chức năng --** Mã được thực thi bên trong một hàm `eval` cũng nhận được ngữ cảnh thực thi của riêng nó, nhưng vì `eval` không thường được sử dụng bởi các nhà phát triển JavaScript, vì vậy tôi sẽ không thảo luận về nó ở đây.
 
 ### **Ngăn xếp(Stack) thực thi** 
+
 Ngăn xếp thực thi, còn được gọi là `"calling stack"` trong các ngôn ngữ lập trình khác, là một ngăn xếp có cấu trúc LIFO (Last In, First Out -> vào sau, ra trước), được sử dụng để lưu trữ tất cả các ngữ cảnh thực thi được tạo trong quá trình thực thi mã.
 
 Khi công cụ JavaScript gặp tập lệnh của bạn lần đầu tiên, nó tạo ngữ cảnh thực thi toàn cục và đẩy nó vào ngăn xếp thực thi hiện tại. Bất cứ khi nào công cụ JavaScript tìm thấy một lệnh gọi hàm, nó sẽ tạo một ngữ cảnh thực thi mới cho hàm đó và đẩy nó lên đầu ngăn xếp.
@@ -48,14 +50,15 @@ Khi mã trên tải trong trình duyệt, công cụ Javascript sẽ tạo ngữ
 
 Khi hàm `second()` được gọi từ bên trong hàm `first()`, công cụ Javascript tạo một ngữ cảnh thực thi mới cho hàm đó và đẩy nó lên đầu ngăn xếp thực thi hiện tại. Khi hàm `second()` kết thúc, ngữ cảnh thực thi của nó sẽ xuất hiện từ ngăn xếp hiện tại và điều khiển đi đến ngữ cảnh thực thi bên dưới nó, đó là ngữ cảnh thực thi hàm `first()`.
 
-Khi `first()` kết thúc, ngăn xếp thực thi của nó bị xóa khỏi ngăn xếp và điều khiển đạt đến ngữ cảnh thực thi toàn cục. Khi tất cả mã được thực thi, công cụ JavaScript sẽ xóa bối cảnh thực thi toàn cục khỏi ngăn xếp hiện tại.
+Khi `first()` kết thúc, ngăn xếp thực thi của nó bị xóa khỏi ngăn xếp và điều khiển đạt đến ngữ cảnh thực thi toàn cục. Khi tất cả mã được thực thi, công cụ JavaScript sẽ xóa ngữ cảnh thực thi toàn cục khỏi ngăn xếp hiện tại.
 
-#### **Ngữ cảnh thực thi được tạo ra như thế nào?**
+### **Ngữ cảnh thực thi được tạo ra như thế nào?**
+
 Cho đến bây giờ, chúng ta đã thấy cách công cụ JavaScript quản lý ngữ cảnh thực thi, Bây giờ chúng ta hãy hiểu cách công cụ JavaScript tạo ngữ cảnh thực thi.
 
 Ngữ cảnh thực thi được tạo trong hai giai đoạn: **1) Giai đoạn tạo** và **2) Giai đoạn thực thi**.
 
-##### **Giai đoạn tạo**
+#### **Giai đoạn tạo**
 Ngữ cảnh thực thi được tạo trong giai đoạn tạo. Những điều sau đây xảy ra trong giai đoạn tạo:
 
 1. **LexicalEnvironment** thành phần môi trường lexical được tạo.
@@ -71,6 +74,7 @@ Vì vậy, ngữ cảnh thực thi có thể được biểu diễn về mặt k
 ```
 
 **1. Môi Trường Lexical**
+
 Các tài liệu chính thức của ES6 định nghĩa Môi trường Lexical là
 
 ```
@@ -106,13 +110,14 @@ Mỗi Môi trường Lexical có ba thành phần:
 2. Tham chiếu đến môi trường bên ngoài.
 3. Sự ràng buộc `This`.
 
-**Bản ghi môi trường** (Environment Record)
+**i. Bản ghi môi trường** (Environment Record)
+
 Bản ghi môi trường là nơi lưu trữ các khai báo biến và hàm bên trong môi trường lexical.
 
 Cũng có hai loại bản ghi môi trường:
 
-**Bản ghi môi trường khai báo (Declarative environment record) --** Như tên gọi của nó cho thấy lưu trữ các khai báo biến và hàm. Môi trường lexical cho mã hàm chứa bản ghi môi trường khai báo.
-**Bản ghi môi trường đối tượng (Object environment record) --** Môi trường lexical cho mã toàn cục chứa một bản ghi môi trường. Ngoài khai báo biến và hàm, bản ghi môi trường đối tượng cũng lưu trữ một đối tượng liên kết toàn cục (window) (đối tượng cửa sổ trong trình duyệt). Vì vậy, đối với mỗi thuộc tính của đối tượng ràng buộc (trong trường hợp trình duyệt, nó chứa các thuộc tính và phương thức do trình duyệt cung cấp cho đối tượng cửa sổ), một mục nhập mới sẽ được tạo trong bản ghi.
+- **Bản ghi môi trường khai báo (Declarative environment record) --** Như tên gọi của nó cho thấy lưu trữ các khai báo biến và hàm. Môi trường lexical cho mã hàm chứa bản ghi môi trường khai báo.
+- **Bản ghi môi trường đối tượng (Object environment record) --** Môi trường lexical cho mã toàn cục chứa một bản ghi môi trường. Ngoài khai báo biến và hàm, bản ghi môi trường đối tượng cũng lưu trữ một đối tượng liên kết toàn cục (window) (đối tượng cửa sổ trong trình duyệt). Vì vậy, đối với mỗi thuộc tính của đối tượng ràng buộc (trong trường hợp trình duyệt, nó chứa các thuộc tính và phương thức do trình duyệt cung cấp cho đối tượng cửa sổ), một mục nhập mới sẽ được tạo trong bản ghi.
 
 Lưu ý - Đối với mã hàm, bản ghi môi trường cũng chứa đối tượng đối số chứa ánh xạ giữa các chỉ mục và đối số được truyền cho hàm và độ dài (số) của đối số được truyền vào hàm.
 
@@ -128,13 +133,15 @@ Ví dụ, một đối tượng đối số cho hàm dưới đây trông giốn
     Arguments: {0: 2, 1: 3, length: 2}
 ```
 
-**Tham chiếu đến Môi trường bên ngoài** (Reference to the Outer Environment)
+**ii. Tham chiếu đến Môi trường bên ngoài** (Reference to the Outer Environment)
+
 Tham chiếu đến môi trường bên ngoài có nghĩa là nó có quyền truy cập vào môi trường lexical bên ngoài của nó. Điều đó có nghĩa là công cụ JavaScript có thể tìm kiếm các biến bên trong môi trường bên ngoài nếu chúng không được tìm thấy trong môi trường lexical hiện tại.
 
-**Ràng buộc** (This Binding)
+**iii. Ràng buộc** (This Binding)
+
 Trong thành phần này, giá trị của `this` được xác định hoặc đặt.
 
-Trong bối cảnh thực thi toàn cục, giá trị của `this` đề cập đến đối tượng toàn cục. (trong các trình duyệt, `this` đề cập đến Đối tượng Cửa sổ(Window Object)).
+Trong ngữ cảnh thực thi toàn cục, giá trị của `this` đề cập đến đối tượng toàn cục. (trong các trình duyệt, `this` đề cập đến Đối tượng Cửa sổ(Window Object)).
 
 Trong ngữ cảnh thực thi hàm, giá trị của điều này phụ thuộc vào cách hàm được gọi. Nếu nó được gọi bởi một tham chiếu đối tượng, thì giá trị của `this` được đặt cho đối tượng đó, nếu không, giá trị của `this` được đặt thành đối tượng toàn cục hoặc không xác định (ở chế độ nghiêm ngặt). Ví dụ:
 
@@ -181,16 +188,19 @@ Tóm lại, môi trường lexical trông giống như thế này trong mã này
 ```
 
 **2. Môi trường biến**
+
 Nó cũng là một Môi trường Lexical có EnvironmentRecord giữ các liên kết được tạo bởi VariableStatements trong ngữ cảnh thực thi này.
 
 Như đã viết ở trên, môi trường biến cũng là một môi trường lexical, Vì vậy, nó có tất cả các thuộc tính và thành phần của một môi trường lexical như đã định nghĩa ở trên.
 
 Trong ES6, một điểm khác biệt giữa thành phần **LexicalEnvironment** và thành phần **VariableEnvironment** là cái trước đây được sử dụng để lưu trữ khai báo hàm và các ràng buộc biến (let và const). trong khi cái sau chỉ được sử dụng để lưu trữ các liên kết biến (var).
 
-##### **Giai đoạn thực hiện**
+### **Giai đoạn thực hiện**
+
 Trong giai đoạn này, việc gán cho tất cả các biến đó đã được thực hiện và mã cuối cùng được thực thi.
 
 **Ví Dụ**
+
 Hãy xem một số ví dụ để hiểu các khái niệm trên:
 
 ```
@@ -328,7 +338,8 @@ Lưu ý - Như bạn có thể nhận thấy rằng các biến được định
 
 Lưu ý - Trong giai đoạn thực thi, nếu công cụ JavaScript không thể tìm thấy giá trị của biến `let` tại vị trí thực tế mà nó được khai báo trong mã nguồn, thì nó sẽ gán cho nó giá trị không xác định (`undefined`).
 
-### **Phần kết luận**
+## **Phần kết luận**
+
 Vì vậy, chúng ta đã thảo luận về cách các chương trình JavaScript được thực thi nội bộ. Mặc dù bạn không cần thiết phải học tất cả các khái niệm này để trở thành một nhà phát triển JavaScript tuyệt vời, Việc hiểu rõ các khái niệm trên sẽ giúp bạn hiểu các khái niệm khác như `Hoisting`, `Scope`, `Closures` một cách dễ dàng và sâu sắc hơn.
 
 Vậy là xong và nếu bạn thấy bài viết này hữu ích, vui lòng Share bài viết 👏 để mọi người hiểu hơn về Javascript nhé! Thanks.
