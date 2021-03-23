@@ -75,13 +75,13 @@ Vì vậy, `Execution Context` có thể được biểu diễn về mặt khái
 
 **1. LexicalEnvironment**
 
-Các tài liệu chính thức của ES6 định nghĩa LexicalEnvironment là
+Các tài liệu chính thức của ES6 định nghĩa `LexicalEnvironment` là
 
 ```
     A Lexical Environment is a specification type used to define the association of Identifiers to specific variables and functions based upon the lexical nesting structure of ECMAScript code. A Lexical Environment consists of an `Environment Record` and a possibly null reference to an outer Lexical Environment.
 ```
 
-Nói một cách đơn giản, LexicalEnvironment là một cấu trúc chứa ánh xạ `Variables` định danh (ở đây định danh đề cập đến tên của các `Variables` / `Function`, và `Variables` là tham chiếu đến đối tượng thực tế [bao gồm đối tượng `Function` và đối tượng `Array`] hoặc `primitive value`(giá trị nguyên thủy)).
+Nói một cách đơn giản, `LexicalEnvironment` là một cấu trúc chứa ánh xạ `Variables` định danh (ở đây định danh đề cập đến tên của các `Variables` / `Function`, và `Variables` là tham chiếu đến đối tượng thực tế [bao gồm đối tượng `Function` và đối tượng `Array`] hoặc `primitive value`(giá trị nguyên thủy)).
 
 Ví dụ: hãy xem xét đoạn `code` sau:
 
@@ -94,7 +94,7 @@ Ví dụ: hãy xem xét đoạn `code` sau:
     }
 ```
 
-Vì vậy, LexicalEnvironment cho đoạn `code` trên trông giống như sau:
+Vì vậy, `LexicalEnvironment` cho đoạn `code` trên trông giống như sau:
 
 ```
     lexicalEnvironment = {
@@ -104,7 +104,7 @@ Vì vậy, LexicalEnvironment cho đoạn `code` trên trông giống như sau:
     }
 ```
 
-Mỗi LexicalEnvironment có ba thành phần:
+Mỗi `LexicalEnvironment` có ba thành phần:
 
 1. `Environment Record`(Bản ghi môi trường).
 2. `Reference to the Outer Environment`(Tham chiếu đến môi trường bên ngoài).
