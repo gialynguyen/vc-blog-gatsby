@@ -46,11 +46,11 @@ Hãy hiểu điều này với một ví dụ `code` bên dưới:
     console.log('Inside Global Execution Context');
 ```
 
-Khi `code` trên tải trong trình duyệt, trình thực thi JavaScript sẽ tạo `Global Execution Context` và đẩy nó vào `Execution Stack` hiện tại. Khi một lệnh gọi đến `first()` gặp phải, các trình thực thi JavaScript sẽ tạo một `Execution Context` mới cho `Function` đó và đẩy nó lên đầu `Execution Stack` hiện tại.
+Khi `code` trên tải trong trình duyệt, trình thực thi JavaScript sẽ tạo `Global Execution Context` và đẩy nó vào `Execution Stack` hiện tại. Khi gọi đến hàm **`first()`**, các trình thực thi JavaScript sẽ tạo một `Execution Context` mới cho `Function` đó và đẩy nó lên đầu `Execution Stack` hiện tại.
 
-Khi `second()` được gọi từ bên trong `first()`, trình thực thi JavaScript tạo một `Execution Context` mới cho `Function` đó và đẩy nó lên đầu `Execution Stack` hiện tại. Khi `second()` kết thúc, `Execution Context` của nó sẽ xuất hiện từ `Stack` hiện tại và điều khiển đi đến `Execution Context` bên dưới nó, đó là `Execution Context` của `first()`.
+Khi hàm **`second()`** được gọi từ bên trong hàm **`first()`**, trình thực thi JavaScript tạo một `Execution Context` mới cho `Function` đó và đẩy nó lên đầu `Execution Stack` hiện tại. Khi hàm **`second()`** kết thúc, `Execution Context` của nó sẽ xuất hiện từ `Stack` hiện tại và điều khiển đi đến `Execution Context` bên dưới nó, đó là `Execution Context` của hàm **`first()`**.
 
-Khi `first()` kết thúc, `Execution Stack` của nó bị xóa khỏi `Stack` và điều khiển đạt đến `Global Execution Context`. Khi tất cả `code` được thực thi, trình thực thi JavaScript sẽ xóa `Global Execution Context` khỏi `Stack` hiện tại.
+Khi hàm **`first()`** kết thúc, `Execution Stack` của nó bị xóa khỏi `Stack` và điều khiển đạt đến `Global Execution Context`. Khi tất cả `code` được thực thi, trình thực thi JavaScript sẽ xóa `Global Execution Context` khỏi `Stack` hiện tại.
 
 ### **`Execution Context` được tạo ra như thế nào?**
 
@@ -110,18 +110,18 @@ Mỗi `LexicalEnvironment` có ba thành phần:
 2. `Reference to the Outer Environment`(Tham chiếu đến môi trường bên ngoài).
 3. `This Binding`(Sự ràng buộc `This`).
 
-**i. `Environment Record`**
+**i. Environment Record**
 
-Environment Record là nơi lưu trữ các khai báo `Variables` và `Function` bên trong `LexicalEnvironment`.
+`Environment Record` là nơi lưu trữ các khai báo `Variables` và `Function` bên trong `LexicalEnvironment`.
 
 Cũng có hai loại `Environment Record`:
 
-- **Declarative Environment Record(Bản ghi môi trường khai báo) --** Như tên gọi của nó cho thấy lưu trữ các khai báo `Variables` và `Function`. `LexicalEnvironment` cho `function code` chứa `Environment Record` khai báo.
-- **Object Environment Record(Bản ghi môi trường đối tượng) --** `LexicalEnvironment` cho `code` toàn cục chứa một `Environment Record`. Ngoài khai báo `Variables` và `Function`, `Object Environment Record` cũng lưu trữ một đối tượng liên kết toàn cục (window) (đối tượng cửa sổ trong trình duyệt). Vì vậy, đối với mỗi thuộc tính của đối tượng ràng buộc (trong trường hợp trình duyệt, nó chứa các thuộc tính và phương thức do trình duyệt cung cấp cho đối tượng cửa sổ), một mục nhập mới sẽ được tạo trong bản ghi.
+- **Declarative Environment Record(Bản ghi môi trường khai báo) --** 1 nơi mà `variable` và `function declaration` được lưu trữ.
+- **Object Environment Record(Bản ghi môi trường đối tượng) --** Liên kết với một đối tượng được gọi là đối tượng ràng buộc của nó. `Object Environment Record` liên kết tập hợp các tên định danh tương ứng trực tiếp với các tên thuộc tính của đối tượng liên kết với nó, bao gồm cả `arguments` và `length of arguments` nếu đối tượng liên kết là 1 `function`
 
-Lưu ý - Đối với `function code`, `Environment Record` cũng chứa đối tượng đối số chứa ánh xạ giữa các chỉ mục và đối số được truyền cho `Function` và độ dài(số) của đối số được truyền vào `Function`.
+Lưu ý - Đối với `code` bên trong `function`, `Environment Record` cũng chứa đối tượng `arguments` và `length(number)` của `arguments` được truyền vào `Function`.
 
-Ví dụ, một đối tượng đối số cho `Function` dưới đây trông giống như sau:
+Ví dụ, một đối tượng `arguments` cho `Function` dưới đây trông giống như sau:
 
 ```
     function foo(a, b) {
@@ -274,7 +274,7 @@ Trong giai đoạn thực thi, các phép gán `Variables` được thực hiệ
     }
 ```
 
-Khi một lệnh gọi `Function`  `multiply(20, 30)` gặp phải, một `Function Execution Context` mới được tạo để thực thi `function code`. Vì vậy, `Function Execution Context` sẽ trông giống như thế này trong giai đoạn tạo:
+Khi gọi hàm **`multiply(20, 30)`**, một `Function Execution Context` mới được tạo để thực thi `code` bên trong `function`. Vì vậy, `Function Execution Context` sẽ trông giống như thế này trong giai đoạn tạo:
 
 ```
     FunctionExectionContext = {
