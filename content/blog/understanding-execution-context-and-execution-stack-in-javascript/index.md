@@ -13,7 +13,7 @@ Nói một cách đơn giản, `Execution Context` là một khái niệm trừu
 
 Có ba loại `Execution Context` trong JavaScript.
 
-- **`Global Execution Context`(Ngữ Cảnh Thực Thi Toàn Cầu) --** Đây là `Execution Context` mặc định. `Code` không nằm trong bất kỳ `Function` nào nằm trong `Global Execution Context`. Nó thực hiện hai việc: Tạo ra một đối tượng toàn cục là một đối tượng cửa sổ(window) (trong trường hợp của các trình duyệt) và đặt giá trị của `This` bằng đối tượng toàn cục. Chỉ có thể có một `Global Execution Context` trong một chương trình.
+- **`Global Execution Context`(Ngữ Cảnh Thực Thi Toàn Cầu) --** Đây là `Execution Context` mặc định. `Code` không nằm trong bất kỳ `Function` nào trong `Global Execution Context`. Nó thực hiện hai việc: Tạo ra một đối tượng toàn cục là một đối tượng cửa sổ(window) (trong trường hợp của các trình duyệt) và đặt giá trị của `This` bằng đối tượng toàn cục. Chỉ có thể có một `Global Execution Context` trong một chương trình.
 
 - **`Function Execution Context`(Ngữ Cảnh Thực Thi Hàm) --** Mỗi khi một `Function` được gọi, một `Execution Context` hoàn toàn mới sẽ được tạo cho `Function` đó. Mỗi `Function` có `Execution Context` riêng, nhưng nó được tạo khi `Function` được thực thi. Không giới hạn số lượng `Function Execution Context`. Bất cứ khi nào một `Execution Context` mới được tạo, nó sẽ trải qua một loạt các bước theo thứ tự xác định mà tôi sẽ trình bày ở phần sau của bài viết này.
 
@@ -62,7 +62,7 @@ Cho đến bây giờ, chúng ta đã thấy cách trình thực thi JavaScript 
 `Execution Context` được tạo trong `Creation Phase`. Những điều sau đây xảy ra trong `Creation Phase`:
 
 1. **LexicalEnvironment** thành phần môi trường lexical được tạo.
-2. **VariableEnvironment** Thành phần môi trường biến được tạo ra.
+2. **VariableEnvironment** Thành phần môi trường biến được tạo.
 
 Vì vậy, `Execution Context` có thể được biểu diễn về mặt khái niệm như sau:
 
@@ -81,7 +81,7 @@ Các tài liệu chính thức của ES6 định nghĩa `LexicalEnvironment` là
     A Lexical Environment is a specification type used to define the association of Identifiers to specific variables and functions based upon the lexical nesting structure of ECMAScript code. A Lexical Environment consists of an `Environment Record` and a possibly null reference to an outer Lexical Environment.
 ```
 
-Nói một cách đơn giản, `LexicalEnvironment` là một cấu trúc chứa ánh xạ `Variables` định danh (ở đây định danh đề cập đến tên của các `Variables` / `Function`, và `Variables` là tham chiếu đến đối tượng thực tế [bao gồm đối tượng `Function` và đối tượng `Array`] hoặc `primitive value`(giá trị nguyên thủy)).
+Nói một cách đơn giản, `LexicalEnvironment` là một cấu trúc chứa `Variables` định danh (ở đây định danh đề cập đến tên của các `Variables` / `Function`, và `Variables` là tham chiếu đến đối tượng thực tế [bao gồm đối tượng `Function` và đối tượng `Array`] hoặc `primitive value`(giá trị nguyên thủy)).
 
 Ví dụ: hãy xem xét đoạn `code` sau:
 
@@ -118,8 +118,6 @@ Cũng có hai loại `Environment Record`:
 
 - **Declarative Environment Record(Bản ghi môi trường khai báo) --** 1 nơi mà `variable` và `function declaration` được lưu trữ.
 - **Object Environment Record(Bản ghi môi trường đối tượng) --** Liên kết với một đối tượng được gọi là đối tượng ràng buộc của nó. `Object Environment Record` liên kết tập hợp các tên định danh tương ứng trực tiếp với các tên thuộc tính của đối tượng liên kết với nó, bao gồm cả `arguments` và `length of arguments` nếu đối tượng liên kết là 1 `function`
-
-Lưu ý - Đối với `code` bên trong `function`, `Environment Record` cũng chứa đối tượng `arguments` và `length(number)` của `arguments` được truyền vào `Function`.
 
 Ví dụ, một đối tượng `arguments` cho `Function` dưới đây trông giống như sau:
 
