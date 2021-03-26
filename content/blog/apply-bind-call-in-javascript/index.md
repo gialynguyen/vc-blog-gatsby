@@ -45,7 +45,7 @@ Do đó, **`this`** được sử dụng bên trong hàm sẽ tham chiếu đế
 Để sử dụng `this` đúng với yêu cầu của mình, chúng ta sử dụng `ABC` trong JavaScript.
 
 ## apply() là gì ?
-- Phương thức **`apply()`** nó cho phép truyền vào tham số đầu tiên là 1 đối tượng và các `arguments` được cung cấp dưới dạng một `array` (hoặc một đối tượng giống `array`).
+- Phương thức **`apply()`** nó cho phép truyền vào tham số là 1 đối tượng và các `arguments` được cung cấp dưới dạng một `array` (hoặc một đối tượng giống `array`).
 
 - Cú pháp: ```func.apply(thisArg, [ argsArray])```
 
@@ -67,7 +67,7 @@ Do đó, **`this`** được sử dụng bên trong hàm sẽ tham chiếu đế
 
 ## bind() là gì ?
 
-- Phương thức `bind()` tạo ra một hàm mới, nó cho phép truyền vào tham số đầu tiên là 1 đối tượng và các `arguments` cách nhau 1 dấu phẩy.
+- Phương thức `bind()` tạo ra một hàm mới, nó cho phép truyền vào tham số là 1 đối tượng và các `arguments` cách nhau 1 dấu phẩy.
 
 - Cú pháp: ```let Func = func.bind(thisArg[, arg1[, arg2[, ...argN]]])```
 
@@ -97,7 +97,7 @@ Do đó, **`this`** được sử dụng bên trong hàm sẽ tham chiếu đế
 
 
 ## call() là gì ?
-- `call` cho phép truyền vào tham số đầu tiên là 1 đối tượng và các `arguments` cách nhau 1 dấu phẩy.
+- `call` cho phép truyền vào tham số là 1 đối tượng và các `arguments` cách nhau 1 dấu phẩy.
 
 - Cú pháp: ```func.call([thisArg[, arg1, arg2, ...argN]])```
 
