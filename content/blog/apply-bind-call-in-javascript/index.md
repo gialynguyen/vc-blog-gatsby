@@ -11,7 +11,7 @@ tags: ["Javascript"]
 - B --> **bind()**
 - C --> **call()**
 
-Chúng ta có thể đặt những gì `This` được tham chiếu đến, bất kể hàm được gọi như thế nào hoặc ở đâu. Hãy xem điều gì sẽ xảy ra trong trường hợp có một đối tượng. Hàm `fullName()` đang được gọi thông qua đối tượng `person` như hình dưới đây...
+Ba hàm `call`, `apply` và `bind` là các `prototype` của `Function`. Nên chỉ có `Function` mới có thể gọi được 3 hàm này. Hãy xem điều gì sẽ xảy ra trong trường hợp có một đối tượng. Hàm `fullName()` đang được gọi thông qua đối tượng `person` như hình dưới đây...
 
 ```
     const person = {
@@ -47,19 +47,9 @@ Tham chiếu đến **`This`** thay đổi đối với đối tượng toàn c�
 Để sử dụng `this` đúng với yêu cầu của mình, chúng ta sử dụng `ABC` trong JavaScript.
 
 ## apply() là gì ?
-- Phương thức **`apply()`** gọi một hàm với giá trị `this` đã cho và các `arguments` được cung cấp dưới dạng một `array` (hoặc một đối tượng giống `array`).
+- Phương thức **`apply()`** nó cho phép truyền vào tham số đầu tiên là 1 đối tượng và các `arguments` được cung cấp dưới dạng một `array` (hoặc một đối tượng giống `array`).
 
 - Cú pháp: ```func.apply(thisArg, [ argsArray])```
-  
-  - **`thisArg`**
-    
-    Giá trị của `this` được cung cấp cho hàm `func`.
-
-    Lưu ý `this` có thể không phải là giá trị thực mà phương thức nhìn thấy: nếu phương thức là một hàm trong `code` có chế độ không nghiêm ngặt, `null` và `undefined` sẽ được thay thế bằng đối tượng toàn cục và các giá trị nguyên thủy sẽ được đóng hộp. `argument` là bắt buộc.
-
-  - **`argsArray`**
-
-    Một đối tượng giống `Array`, chỉ định các `argument` mà `func` sẽ được gọi, hoặc `null` hoặc `undefined` nếu không có `argument` nào được cung cấp cho hàm.
 
 - ví dụ:
 ```
@@ -79,21 +69,9 @@ Tham chiếu đến **`This`** thay đổi đối với đối tượng toàn c�
 
 ## bind() là gì ?
 
-- Phương thức `bind()` tạo ra một hàm mới, khi được gọi, từ khóa `this` của nó được đặt thành giá trị được cung cấp, với một chuỗi `argument` nhất định đứng trước bất kỳ `argument` nào được cung cấp khi hàm mới được gọi.
+- Phương thức `bind()` tạo ra một hàm mới, nó cho phép truyền vào tham số đầu tiên là 1 đối tượng và các `arguments` cách nhau 1 dấu phẩy.
 
 - Cú pháp: ```let Func = func.bind(thisArg[, arg1[, arg2[, ...argN]]])```
-  
-  - `thisArg`
-
-    Giá trị `this` được truyền dưới dạng tham số cho `func` khi hàm được gọi. 
-    
-    Giá trị bị bỏ qua nếu hàm được tạo bằng toán tử `new`.
-    
-    Khi sử dụng `bind` để tạo một hàm (được cung cấp dưới dạng `callback`) bên trong `setTimeout`, bất kỳ giá trị `primitive` nào được truyền dưới dạng `thisArg` sẽ được chuyển đổi thành đối tượng. Nếu không có `argument` nào được cung cấp để `bind`, hoặc nếu `thisArg` là `null` hoặc `undefined`, phạm vi thực thi của `this` được coi là `argument` đầu tiên cho hàm mới.
-
-  - `arg1, arg2, ...argN`
-
-    Các `argument` để thêm vào trước các `argument` được cung cấp cho hàm ràng buộc khi gọi hàm `func`.
 
 - Ví dụ:
     ```
@@ -121,14 +99,9 @@ Tham chiếu đến **`This`** thay đổi đối với đối tượng toàn c�
 
 
 ## call() là gì ?
-- Phương thức `call()` gọi một hàm với giá trị `this` đã cho và các `argument` được cung cấp riêng lẻ.
+- `call` cho phép truyền vào tham số đầu tiên là 1 đối tượng và các `arguments` cách nhau 1 dấu phẩy.
 
 - Cú pháp: ```func.call([thisArg[, arg1, arg2, ...argN]])```
-
-    - `thisArg`: Giá trị `this` sử dụng khi `func` được gọi.
-
-    - `arg1, arg2, ...argN`: là `argument` của hàm.
-
 
 - ví dụ:
 
@@ -174,11 +147,18 @@ Tham chiếu đến **`This`** thay đổi đối với đối tượng toàn c�
         fullName.call();  // Cannot read the property of 'name' of undefined
     ```
 
+**`Lưu ý`**
+  - `Arrow Funtion` không dùng được tất cả phương thức như hàm `funtion` bình thường.
+  - `This` của arrow function được xác định ở môi trường nó được khởi tạo. Còn `This` của function được xác định ở môi trường thực thi của nó.
+  - `Arrow Funtion` không tạo ra ngữ cảnh `this` của riêng hàm, thế nên `this` có ý nghĩa trong ngữ cảnh bọc quanh nó.
+  - Ở chế độ `Strict Mode` thì `this` của `arrow function` luôn luôn `undefined`.
+
+
 ## Nguồn
 - `bind()` --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
 - `apply()` --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
 - `call()` --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call
-- `Javascript’s ABC: Apply, Bind and Call` --> https://aparnaj.medium.com/javascripts-abc-apply-bind-and-call-f49164a0df01
+- `Javascript’s ABC: Apply, Bind and Call` --> https://dev.to/rahxuls/abc-of-javascript-50h3
 
 ## Phần kết luận
 
