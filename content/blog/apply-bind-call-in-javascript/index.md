@@ -97,7 +97,7 @@ Do đó, **`this`** được sử dụng bên trong hàm sẽ tham chiếu đế
 
 
 ## call() là gì ?
-- `call` cho phép truyền vào tham số là 1 đối tượng và các `arguments` cách nhau 1 dấu phẩy.
+- Phương thức `call` cũng cho phép truyền vào tham số là 1 đối tượng và các `arguments` cách nhau 1 dấu phẩy.
 
 - Cú pháp: ```func.call([thisArg[, arg1, arg2, ...argN]])```
 
