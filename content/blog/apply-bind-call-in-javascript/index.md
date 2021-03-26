@@ -173,3 +173,14 @@ Tham chiếu đến **`This`** thay đổi đối với đối tượng toàn c�
 
         fullName.call();  // Cannot read the property of 'name' of undefined
     ```
+
+## Nguồn
+- `bind()` --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+- `apply()` --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
+- `call()` --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call
+- Javascript’s ABC: Apply, Bind and Call --> https://aparnaj.medium.com/javascripts-abc-apply-bind-and-call-f49164a0df01
+## Phần kết luận
+
+Chúng tôi đã biết rằng cách từ khóa `This` hoạt động trong JavaScript khác với các ngôn ngữ hướng đối tượng khác. Các phương thức `call`, `bind` và `apply` có thể được sử dụng để đặt từ khóa `this` độc lập với cách một hàm được gọi.
+
+Vậy là xong và nếu bạn thấy bài viết này hữu ích, vui lòng Share bài viết 👏 để mọi người hiểu hơn về Javascript nhé! Thanks.
