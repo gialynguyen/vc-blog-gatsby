@@ -42,8 +42,6 @@ Do đó, **`this`** được sử dụng bên trong hàm sẽ tham chiếu đế
     // bởi vì 'getFullName' là toàn cục nên 'person.fullName' đang được gọi đến toàn cục.
 ```
 
-Tham chiếu đến **`This`** thay đổi đối với đối tượng toàn cục và điều này có thể gây ra các lỗi không mong muốn và khó phát hiện.
-
 Để sử dụng `this` đúng với yêu cầu của mình, chúng ta sử dụng `ABC` trong JavaScript.
 
 ## apply() là gì ?
@@ -149,9 +147,9 @@ Tham chiếu đến **`This`** thay đổi đối với đối tượng toàn c�
 
 **`Lưu ý`**
   - `Arrow Funtion` không dùng được tất cả phương thức như hàm `funtion` bình thường.
-  - `This` của arrow function được xác định ở môi trường nó được khởi tạo. Còn `This` của function được xác định ở môi trường thực thi của nó.
+  - `This` của `arrow function` được xác định ở môi trường nó được khởi tạo. Còn `This` của `function` được xác định ở môi trường thực thi của nó.
   - `Arrow Funtion` không tạo ra ngữ cảnh `this` của riêng hàm, thế nên `this` có ý nghĩa trong ngữ cảnh bọc quanh nó.
-  - Ở chế độ `Strict Mode` thì `this` của `arrow function` luôn luôn `undefined`.
+  - Ở chế độ `Strict Mode` thì `this` của `arrow function` luôn luôn là `undefined`.
 
 
 ## Nguồn
