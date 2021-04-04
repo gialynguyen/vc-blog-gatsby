@@ -169,7 +169,7 @@ const ListUsers = () => {
 } 
 ```
 
-Và bên trong component User chỉ cần kết hợp với React.memo để như sau:
+Và bên trong component User cần kết hợp với React.memo để như sau:
 
 ```
 const User = React.memo(
