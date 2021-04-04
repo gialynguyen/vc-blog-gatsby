@@ -52,6 +52,48 @@ export default React.memo(MyComponent, areEqual);
 
 Và đây cũng là cách duy nhất để chặn re-render component không cần thiết trong react-hook
 
+Ví dụ: Giả sử bạn muốn show một list user và không muốn component User re-render mỗi khi nhập vào ô search
+
+
+```
+const User = React.memo(
+  ({user}) => {
+    return <li>
+      {user.firstName} {user.lastName}
+    </li>
+  },
+  (prevProp, nextProps) => {
+    // vì react chỉ shallowly compare nên chúng ta phải so sánh từng property nếu không muốn bị re-render nhé
+    return prevProp.firstName !== nextProps.lastName || 
+        prevProp.firstName !== nextProps.lastName
+  }
+)
+
+const ListUsers = () => {
+  const [search, setSearch] = useState('')
+
+  const listUsers = [
+    {
+      firstName: 'Nguyễn Đình',
+      lastName: 'Phúc'
+    },
+    {
+      firstName: 'Nguyễn Gia',
+      lastName: 'Lý
+    }
+  ]
+
+  return <div>
+    <input value={state.search} onChange={(e)=>setSeach(e.target.value)} />
+    {
+      listUser.map(user => {
+        return <User user={user} />
+      })
+    }
+  </div>
+} 
+```
+
 ## useMemo
 
 ```
@@ -62,6 +104,18 @@ useMemo cho phép chúng ta truyền vào một function (Memoized function) và
 useMemo chỉ thực thi lại memoizedFunction khi một trong những dependencies truyền vào bị thay đổi. Cách này giúp tránh những tính toán phức tạp trong mỗi lần render
 
 Cuối cùng useMemo sẽ trả ra kết quả của memoizedFunction tính toán được. Nếu bạn không truyền vào array of dependencies, cachedResults sẽ được tính toán lại mỗi lần re-render
+
+Okay, xong lý thuyết là phải thực hành, vẫn tiếp tục ví dụ trên nhé, nhưng chúng ta muốn lọc ra những thằng có tên là "Lý" chẳng hạn, nhưng lại không muốn phải thực hiện lại việc lọc mỗi lần nhập vào ô search. Ở trường hợp này chúng ta có thể áp dụng useMemo như sau:
+
+```
+const ListUser = () => {
+  ...
+  const listUserFilter = useMemo(() => {
+    return listUser.filter(user => return !user.lastName.includes('Lý'))
+  }, [listUser])
+  ...
+}
+```
 
 # useCallback
 
@@ -74,9 +128,58 @@ const memoizedCallback = useCallback(
 );
 ```
 
-CŨng giống như useMemo, useCallback cho chúng ta truyền vào 2 tham số, một Memoized function và array of dependencies. Vẫn theo nguyên tắc chỉ khi dependencies thay đổi thì mới thực thi Memoized function, nhưng khác ở chổ useCallback sẽ trả ra chính Memoized function. Cách này giúp ngăn Memoized function của chúng ta bị tạo lại và thay đổi con trỏ trên mỗi lần render. 
+Cũng giống như useMemo, useCallback cho chúng ta truyền vào 2 tham số, một Memoized function và array of dependencies. Vẫn theo nguyên tắc chỉ khi dependencies thay đổi thì mới thực thi Memoized function, nhưng khác ở chổ useCallback sẽ trả ra chính Memoized function. Cách này giúp ngăn Memoized function của chúng ta bị tạo lại và thay đổi con trỏ trên mỗi lần render. 
 
 Đôi khi chúng ta cũng không quan tâm lắm tới việc function có bị khởi tạo lại hay không, nhưng nó lại giúp ích khá nhiều trong trường hợp bạn muốn truyền function vào props của component con đấy. Vì nguyên tắc của react là props thay đổi sẽ re-render lại component, nếu function đó không bị khởi tạo lại thì chúng ta cũng tránh được những lần re-render component con không cần thiết.
+
+Okay, mình lại tiếp tục áp dụng useCallback vào ví dụ trên. Giả sử chúng ta muốn click vào user nào thì active user đó lên đi. Mình sẽ dùng useCallback để chặn không cho hàm setActiveId được khởi tạo lại, tránh để component User bị re-render
+
+```
+const ListUsers = () => {
+  const [search, setSearch] = useState('')
+  const [state, setState] = useState({
+    activeId: ''
+  })
+
+  const listUsers = [
+      {
+        id: '1',
+        firstName: 'Nguyễn Đình',
+        lastName: 'Phúc'
+      },
+      {
+        id: '2',
+        firstName: 'Nguyễn Gia',
+        lastName: 'Lý'
+      }
+  ]
+
+  const setActiveId = useCallback((id) => {
+    setState({activeId: id})
+  }, [search])
+
+  return <div>
+      <input value={state.search} onChange={(e)=>setSeach(e.target.value)} />
+      {
+        listUser.map(user => {
+          return <User setActiveId={setActiveId} user={user} />
+        })
+      }
+    </div>
+} 
+```
+
+Và bên trong component User chỉ cần kết hợp với React.memo để như sau:
+
+```
+const User = React.memo(
+  ({user, setActiveId}) => {
+    return <li onClick={()=> setActiveId(user.id)}>
+      {user.firstName} {user.lastName}
+    </li>
+  }
+)
+```
 
 ## Conclusion
 
