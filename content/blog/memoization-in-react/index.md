@@ -1,10 +1,10 @@
 ---
-title: "Memoization in react"
+title: "TẠI SAO CHÚNG TA KHÔNG NÊN SỬ DỤNG MEMO TRONG REACT !?"
 description: "Lúc mình mới làm việc với React và lần đầu tiên biết đến memo mình đã trầm trồ và ngưỡng mộ những anh dev của Facebook, tại sao mấy ảnh lại nghĩ ra được những tính năng thú vị và có ích như vậy :)) nhưng khi tìm hiểu sâu hơn một tí mình đã vỡ mộng khi biết ý tưởng đó thực ra đã có từ rất lâu trong lập trình máy tính. Và bài viết hôm nay mình xin được giới thiệu về Memoization - một kĩ thuật có thể giúp các bạn tối ưu performance và cách áp dụng nó vào React"
 tags: ["React", "memoization"]
 ---
 
-## Introduction
+## Giới thiệu
 
 Lúc mình mới làm việc với React và lần đầu tiên biết đến memo mình đã trầm trồ và ngưỡng mộ những anh dev của Facebook, tại sao mấy ảnh lại nghĩ ra được những tính năng thú vị và có ích như vậy :)) nhưng khi tìm hiểu sâu hơn một tí mình đã vỡ mộng khi biết ý tưởng đó thực ra đã có từ rất lâu trong lập trình máy tính. Và bài viết hôm nay mình xin được giới thiệu về Memoization - một kĩ thuật có thể giúp các bạn tối ưu performance và cách áp dụng nó vào React
 
@@ -117,7 +117,7 @@ const ListUser = () => {
 }
 ```
 
-# useCallback
+## useCallback
 
 ```
 const memoizedCallback = useCallback(
@@ -181,10 +181,105 @@ const User = React.memo(
 )
 ```
 
-## Conclusion
+## Góc phản biện: Chúng ta vẫn có thể hạn chế re-render trong những trường hợp trên mà không cần dùng memo !!??
 
-Như vậy chúng ta đã hiểu được sức mạnh của memoization và cách sử dụng chúng trong react để tối ưu ứng dụng của mình. Nhưng cũng nên cân nhắc khi sử dụng bởi vì những giá trị đó sẽ chiếm không gian bộ nhớ để lưu trữ.
+### Cách thứ nhất: Tách Component
+
+Một ví dụ đơn giản như sau
+
+```
+export default function App() {
+  let [color, setColor] = useState('red');
+  return (
+    <div>
+      <input value={color} onChange={(e) => setColor(e.target.value)} />
+      <p style={{ color }}>Hello, world!</p>
+      <SomeComponent />
+    </div>
+  );
+}
+```
+
+Vẫn vấn đề cũ, bạn không muốn cái `SomeComponent` không bị re-render mỗi khi nhập `color` và ô input. Bạn chỉ việc tách cái tụi cần phụ thuộc vào state `color` ra một component khác, để nó một mình nó tự re-render :)
+
+```
+export default function App() {
+  return (
+    <>
+      <ChangeColor />
+      <SomeComponent />
+    </>
+  );
+}
+
+function ChangeColor() {
+  let [color, setColor] = useState('red');
+  return (
+    <>
+      <input value={color} onChange={(e) => setColor(e.target.value)} />
+      <p style={{ color }}>Hello, world!</p>
+    </>
+  );
+}
+```
+
+Xong, vấn đề đã được giải quyết!
+
+### Cách thứ 2
+
+Giả sử chúng ta muốn cái `color` được set ở div cha thì sao ?
+
+```
+export default function App() {
+  let [color, setColor] = useState('red');
+  return (
+    <div style={{ color }}>
+      <input value={color} onChange={(e) => setColor(e.target.value)} />
+      <p>Hello, world!</p>
+      <SomeComponent />
+    </div>
+  );
+}
+```
+
+Khó rồi phải không, trường hợp này thì không thể tách như trên được nữa.
+Bạn có thể dùng React.memo để bọc SomeComponent lại cho nó khỏi bị re-render theo `color`. Nhưng ở đây mình chỉ bạn một tip khác
+
+```
+export default function App() {
+  return (
+    <ChangeColor>
+      <p>Hello, world!</p>
+      <SomeComponent />
+    </ChangeColor>
+  );
+}
+
+function ChangeColor({ children }) {
+  let [color, setColor] = useState("red");
+  return (
+    <div style={{ color }}>
+      <input value={color} onChange={(e) => setColor(e.target.value)} />
+      {children}
+    </div>
+  );
+}
+```
+
+Chúng ta tách `App` component ra thành 2 component, `<ChangeColor/>` sẽ phụ thuộc vào state `color` và đương nhiên sẽ bị re-render khi state thay đổi.
+Còn thằng `<SomeComponent/>` của chúng ta sẽ không quan tâm tới state `color` và được truyền vào từ props children của `<ChangeColor/>`.
+Khi state `color` bị thay đổi, component `<ChangeColor/>` sẽ bị re-render nhưng props `children` được truyền từ `App` vào vẫn không bị thay đổi, vì thế `<SomeComponent/>` của chúng ta vẫn không bị re-render. Yayyyy !!!
+
+## Túm lại
+
+Như vậy là qua một blog khá dài, các bạn đã nắm được sức mạnh của kĩ thuật memoization, cách sử dụng các "memo" để áp dụng vào ReactApp của mình.
+Nhưng đôi khi nó cũng sẽ có hại (cái gì nhiều quá thì cũng không tốt), để giảm một phần xử lý thì React phải đánh đổi một phần bộ nhớ để lưu trữ biến đó cho những lần sử dụng tiếp theo, ở những trường hợp như vậy bạn có thể sử dụng 2 tip đơn giản mà mình cung cấp như trên.
+
+Và cuối cùng chúc mừng bạn đã đọc hết một bài viết khá là dài của mình. Hi vọng bài viết trên sẽ giúp ích cho các bạn trong việc tối ưu ReactApp của mình nhé
+
+Byeee!
 
 ## Resources
 
 - https://reactjs.org/docs/hooks-reference.html#usememo
+- https://overreacted.io/before-you-memo/#solution-2-lift-content-up
