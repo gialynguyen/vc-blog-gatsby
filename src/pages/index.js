@@ -46,7 +46,7 @@ const BlogIndex = ({ data, location }) => {
             </section>
             <section>
                 {
-                  node.frontmatter.tags.map((title) => (
+                  node.frontmatter?.tags?.map((title) => (
                     <Link
                       style={{ boxShadow: `none` }}
                       key={title}

@@ -1,5 +1,6 @@
 ---
 title: "TẠI SAO CHÚNG TA KHÔNG NÊN SỬ DỤNG MEMO TRONG REACT !?"
+date: "2021-03-17T03:12:17.188Z"
 description: "Lúc mình mới làm việc với React và lần đầu tiên biết đến memo mình đã trầm trồ và ngưỡng mộ những anh dev của Facebook, tại sao mấy ảnh lại nghĩ ra được những tính năng thú vị và có ích như vậy :)) nhưng khi tìm hiểu sâu hơn một tí mình đã vỡ mộng khi biết ý tưởng đó thực ra đã có từ rất lâu trong lập trình máy tính. Và bài viết hôm nay mình xin được giới thiệu về Memoization - một kĩ thuật có thể giúp các bạn tối ưu performance và cách áp dụng nó vào React"
 tags: ["React", "memoization"]
 ---
