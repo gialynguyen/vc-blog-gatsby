@@ -61,13 +61,13 @@ Ta có thể định nghĩa <i>Data Structures</i> là cách thức để lưu t
 
 Lựa vào cách thức định nghĩa cách tổ chức khi triển khai một Data Structure thì cơ bản ta có thể chia Data Structure ra thành 2 loại:
 
-1. <b>Linear data structures</b>: các elements (phần từ) trong Data Structure sẽ được truy cập một cách tuần tự nhưng khi lưu trữ tất cả theo một cách tuần tự. Vd như: Linked List, Stacks và Queue.
+1. <b>Linear data structures</b>: các elements (phần từ) trong đó các phần tử được lưu trữ tuần tự và các element được kết nối với element trước và element tiếp theo. Vd như: Linked List, Stacks và Queue.
 
-2. <b>Non-linear data structures</b>: các elements sẽ được truy cập và lưu trữ một cách không tuần từ. Vd: Trees, Graphs.
+2. <b>Non-linear data structures</b>: các elements sẽ được truy cập và lưu trữ một cách không tuần tự. Vd: Trees, Graphs.
 
 ## Abstract Data Types (ADTs) (Kiểu dữ liệu trừu tượng)
 
-Như chúng ta đã biết, tất cả các kiểu dữ liệu <i>Primitive</i> đều được hỗ trợ các <i>operator</i> (toán tư) như <i>cộng</i> hoặc <i>trừ</i>.
+Như chúng ta đã biết, tất cả các kiểu dữ liệu <i>Primitive</i> đều được hỗ trợ các <i>operator</i> (toán tử) như <i>cộng</i> hoặc <i>trừ</i>.
 Còn đối với các kiểu dữ liệu <i>user-defined</i>, chúng ta cần phải tự định nghĩa các operations cho chúng. Điều này có nghĩa là khi chúng ta defined một kiểu dữ liệu thì cần phải defined các operators đi kèm với nó.
 
 Đó được gọi là Abstract Data Types (ADTs). Một ADT bao gồm 2 phần:
